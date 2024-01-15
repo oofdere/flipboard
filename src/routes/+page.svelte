@@ -6,7 +6,7 @@
 {#each $state as s}
 	<Box>
 		{#if s.contents[0] === 'text'}
-			<p>{s.contents[1].text}</p>
+			<p contenteditable="true">{s.contents[1].text}</p>
 		{/if}
 	</Box>
 {/each}

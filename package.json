@@ -36,6 +36,7 @@
   },
   "type": "module",
   "dependencies": {
+    "@neodrag/svelte": "^2.0.3",
     "@oofdere/crabrave": "^0.2.2",
     "nanoid": "^5.0.4"
   }

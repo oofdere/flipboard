@@ -62,7 +62,7 @@
 	on:mousemove={handleCursor}
 	role="img"
 >
-	<div id="canvas" class="w-min" style="--translation: {x}vw {y}vh; --zoom: {zoom}%">
+	<div id="canvas" class="" style="--translation: {x}vw {y}vh; --zoom: {zoom}%">
 		<p>+</p>
 		<slot />
 	</div>
@@ -72,6 +72,5 @@
 	#canvas {
 		translate: var(--translation);
 		scale: var(--zoom);
-		background-color: aqua;
 	}
 </style>
