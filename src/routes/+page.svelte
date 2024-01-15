@@ -1,5 +1,12 @@
 <script lang="ts">
+	import { state } from '$lib';
+	import Box from './Box.svelte';
 </script>
 
-<h1 class="">Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+{#each $state as s}
+	<Box>
+		{#if s.contents[0] === 'text'}
+			<p>{s.contents[1].text}</p>
+		{/if}
+	</Box>
+{/each}
