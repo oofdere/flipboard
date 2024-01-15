@@ -3,6 +3,7 @@
 	//import { pack } from '@oofdere/crabrave';
 	import { nanoid } from 'nanoid';
 	import '../app.pcss';
+	import { browser } from '$app/environment';
 
 	let cursor: MouseEvent | undefined = undefined;
 	let x = 0;
@@ -25,6 +26,13 @@
 			})
 		});
 		$state = $state;
+	}
+
+	if (browser) {
+		addEventListener('wheel', (e) => {
+			console.log(e);
+			zoom = Math.max(zoom + e.deltaY * -1, 1);
+		});
 	}
 </script>
 
