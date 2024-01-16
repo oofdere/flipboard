@@ -14,6 +14,7 @@
 	let canvas: HTMLElement;
 	let zoomMultiplier = 1;
 	let dragMultiplier = 1;
+	let lineTransparency = 50;
 
 	function handleCursor(e: MouseEvent) {
 		cursor = e;
@@ -26,13 +27,11 @@
 	}
 
 	function click(e: MouseEvent) {
-		console.log(e);
 		clickPos = [e.clientX, e.clientY];
 		mouseStatus = 'down';
 	}
 
 	function release(e: MouseEvent) {
-		console.log(e);
 		mouseStatus = 'up';
 	}
 
@@ -52,7 +51,6 @@
 
 	if (browser) {
 		addEventListener('wheel', (e) => {
-			console.log(e);
 			zoom = Math.max(zoom + e.deltaY * zoomMultiplier * -1, 1);
 		});
 	}
@@ -75,6 +73,10 @@
 			zoom: <input type="range" bind:value={zoomMultiplier} min="0" max="2" step="0.001" />
 			{zoomMultiplier}x
 		</li>
+		<li>
+			lines: <input type="range" bind:value={lineTransparency} min="0" max="100" step="0.001" />
+			{lineTransparency}%
+		</li>
 	</ul>
 </div>
 
@@ -92,6 +94,9 @@
 	on:mouseup={release}
 	role="presentation"
 	bind:this={canvas}
+	id="container"
+	style="--alpha: {lineTransparency}%; --translation: {(x + 50) * (zoom / 100)}px {(y + 50) *
+		(zoom / 100)}px; --zoom: {(zoom / 100) * 20}px"
 >
 	<div
 		id="canvas"
@@ -102,10 +107,26 @@
 		<slot />
 	</div>
 </div>
+<div
+	class="fixed top-0 -z-50"
+	id="grid"
+	style="--alpha: {lineTransparency}%; --translation: {x * (zoom / 100)}px {y *
+		(zoom / 100)}px; --zoom: {zoom}px"
+></div>
 
 <style>
 	#canvas {
 		translate: var(--translation);
 		scale: var(--zoom);
+	}
+
+	#grid {
+		width: 200vw;
+		height: 200vh;
+		background-image: url('/transparency-grid.svg');
+		background-size: var(--zoom);
+		opacity: var(--alpha);
+		background-position: var(--translation);
+		translate: -100vh -100vh;
 	}
 </style>
