@@ -12,14 +12,16 @@
 	let mouseStatus: string = 'nah';
 	let clickPos: [number, number] = [0, 0];
 	let canvas: HTMLElement;
+	let zoomMultiplier = 1;
+	let dragMultiplier = 1;
 
 	function handleCursor(e: MouseEvent) {
 		cursor = e;
 		if (mouseStatus === 'down') {
 			console.log(e.target, canvas, clickPos, e.x, e.y, e.movementX, e.movementY);
 
-			x += e.movementX / (zoom / 100);
-			y += e.movementY / (zoom / 100);
+			x += (e.movementX / (zoom / 100)) * dragMultiplier;
+			y += (e.movementY / (zoom / 100)) * dragMultiplier;
 		}
 	}
 
@@ -51,7 +53,7 @@
 	if (browser) {
 		addEventListener('wheel', (e) => {
 			console.log(e);
-			zoom = Math.max(zoom + e.deltaY * 0.2 * -1, 1);
+			zoom = Math.max(zoom + e.deltaY * zoomMultiplier * -1, 1);
 		});
 	}
 </script>
@@ -65,9 +67,14 @@
 	{/if}
 	<p>Mouse: {mouseStatus}</p>
 	<ul>
-		<li>x: <input type="range" bind:value={x} min="-100" max="100" /> {x}</li>
-		<li>y: <input type="range" bind:value={y} min="-100" max="100" /> {y}</li>
-		<li>z: <input type="range" bind:value={zoom} min="1" max="200" /> {zoom}%</li>
+		<li>
+			drag: <input type="range" bind:value={dragMultiplier} min="0" max="2" step="0.001" />
+			{dragMultiplier}x
+		</li>
+		<li>
+			zoom: <input type="range" bind:value={zoomMultiplier} min="0" max="2" step="0.001" />
+			{zoomMultiplier}x
+		</li>
 	</ul>
 </div>
 
