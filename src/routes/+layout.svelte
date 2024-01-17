@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { state, pack } from '$lib';
+	import { state, pack, selected } from '$lib';
 	//import { pack } from '@oofdere/crabrave';
 	import { nanoid } from 'nanoid';
 	import '../app.pcss';
@@ -14,7 +14,7 @@
 	let canvas: HTMLElement;
 	let zoomMultiplier = 1;
 	let dragMultiplier = 1;
-	let lineTransparency = 50;
+	let lineTransparency = 0;
 
 	function handleCursor(e: MouseEvent) {
 		cursor = e;
@@ -28,6 +28,7 @@
 
 	function click(e: MouseEvent) {
 		clickPos = [e.clientX, e.clientY];
+		$selected = null;
 		mouseStatus = 'down';
 	}
 
@@ -87,6 +88,14 @@
 	<button on:click={addText}>Add text</button>
 </div>
 
+<div class="fixed right-0 top-0 m-2 bg-black bg-opacity-50 p-1 text-white">
+	{#if $selected === null}
+		<p>no object selected :(</p>
+	{:else}
+		<p>object: {$selected}</p>
+	{/if}
+</div>
+
 <div
 	class="h-screen w-screen overflow-hidden overscroll-none"
 	on:mousemove={handleCursor}
@@ -107,6 +116,7 @@
 		<slot />
 	</div>
 </div>
+
 <div
 	class="fixed top-0 -z-50"
 	id="grid"

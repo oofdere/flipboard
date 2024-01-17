@@ -5,7 +5,7 @@
 </script>
 
 {#each $state as s}
-	<Box>
+	<Box id={s.id}>
 		{#if s.contents[0] === 'text'}
 			<Text text={s.contents[1].text}></Text>
 		{/if}

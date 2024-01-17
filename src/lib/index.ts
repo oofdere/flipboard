@@ -1,7 +1,7 @@
 // place files you want to import through the `$lib` alias in this folder.
 
 import { pack as basePack, type Enum } from "@oofdere/crabrave"
-import { writable } from "svelte/store"
+import { writable, type Writable } from "svelte/store"
 
 export type Box = {
     pos: [number, number],
@@ -15,6 +15,7 @@ export type Box = {
 // 100% ADT copium right here
 type Types = {
     text: Text
+    rect: Rect
 }
 
 type Text = {
@@ -22,6 +23,12 @@ type Text = {
     font: string
 }
 
+type Rect = {
+    ratio: number
+}
+
 export const pack = basePack<Types>
 
 export const state = writable<Box[]>([])
+
+export const selected: Writable<string | null> = writable(null)
