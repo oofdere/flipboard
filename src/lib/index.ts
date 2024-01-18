@@ -1,34 +1,46 @@
 // place files you want to import through the `$lib` alias in this folder.
 
-import { pack as basePack, type Enum } from "@oofdere/crabrave"
 import { writable, type Writable } from "svelte/store"
+import TextComponent from "./Text.svelte"
+import ImageComponent from "./Image.svelte"
+
+export const ComponentMap = {
+    text: TextComponent,
+    image: ImageComponent
+} as const
+
 
 export type Box = {
     pos: [number, number],
     scale: [number, number],
     rot: number,
     id: string,
-    contents: Enum<Types>
+    contents: Text | Image
 }
 
-// this is a crabrave enum
-// 100% ADT copium right here
-type Types = {
-    text: Text
-    rect: Rect
-}
 
-type Text = {
+export type Text = {
+    type: "text",
     text: string,
-    font: string
+    position: [number, number],
+    rotation: number,
+    font: string,
+    transform: string
+    size: number
 }
 
-type Rect = {
-    ratio: number
+export type Image = {
+    type: "image",
+    image: number,
+    rotation: number,
+    size: [number, number]
+    position: [number, number],
+
 }
 
-export const pack = basePack<Types>
+export type ObjectTypes = Text | Image
 
-export const state = writable<Box[]>([])
+export const state = writable<Writable<ObjectTypes>[]>([])
 
-export const selected: Writable<string | null> = writable(null)
+export const selected: Writable<Writable<ObjectTypes> | null> = writable(null)
+export const tool: Writable<"text" | "image" | null> = writable(null)

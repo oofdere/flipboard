@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { state, pack, selected } from '$lib';
-	//import { pack } from '@oofdere/crabrave';
-	import { nanoid } from 'nanoid';
+	import { state, selected } from '$lib';
 	import '../app.pcss';
 	import { browser } from '$app/environment';
+	import { writable } from 'svelte/store';
+	import Properties from './Properties.svelte';
 
 	let cursor: MouseEvent | undefined = undefined;
 	let x = 0;
@@ -37,18 +37,20 @@
 	}
 
 	function addText() {
-		$state.push({
-			pos: [0, 0],
-			scale: [1, 1],
-			rot: 0,
-			id: nanoid(),
-			contents: pack('text', {
-				text: "what you're referring to as GNU/Linux is actually... wait a minute",
-				font: 'whatever'
+		$state.push(
+			writable({
+				type: 'text',
+				text: 'Sample Text',
+				position: [0, 0],
+				rotation: 0,
+				font: 'system-ui',
+				transform: 'none',
+				size: 12
 			})
-		});
+		);
 		$state = $state;
 	}
+	addText();
 
 	if (browser) {
 		addEventListener('wheel', (e) => {
@@ -88,11 +90,11 @@
 	<button on:click={addText}>Add text</button>
 </div>
 
-<div class="fixed right-0 top-0 m-2 bg-black bg-opacity-50 p-1 text-white">
-	{#if $selected === null}
-		<p>no object selected :(</p>
+<div class="pointer-events-auto fixed right-0 top-0 z-50 m-2 bg-black bg-opacity-50 p-1 text-white">
+	{#if $selected}
+		<Properties object={$selected} />
 	{:else}
-		<p>object: {$selected}</p>
+		nothing selected :(
 	{/if}
 </div>
 

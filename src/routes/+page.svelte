@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { state } from '$lib';
 	import Box from './Box.svelte';
-	import Text from './Text.svelte';
+	import Text from '$lib/Text.svelte';
+
+	import { ComponentMap } from '$lib';
+
+	console.log(ComponentMap);
 </script>
 
-{#each $state as s}
-	<Box id={s.id}>
-		{#if s.contents[0] === 'text'}
-			<Text text={s.contents[1].text}></Text>
-		{/if}
-	</Box>
+{#each $state as object}
+	<Box {object}></Box>
 {/each}
