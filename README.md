@@ -39,3 +39,7 @@ export const canvasPosition = writable<[number, number]>([0, 0]);
 ```
 
 contains the position of the center of the canvas
+
+### `$tool`
+
+contains the currently selected tool
