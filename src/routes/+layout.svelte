@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { state, selected } from '$lib';
+	import { state, selected, mouseStatus, zoom } from '$lib';
 	import '../app.pcss';
 	import { browser } from '$app/environment';
 	import { writable } from 'svelte/store';
@@ -8,9 +8,6 @@
 	let cursor: MouseEvent | undefined = undefined;
 	let x = 0;
 	let y = 0;
-	let zoom = 100;
-	let mouseStatus: string = 'nah';
-	let clickPos: [number, number] = [0, 0];
 	let canvas: HTMLElement;
 	let zoomMultiplier = 1;
 	let dragMultiplier = 1;
@@ -18,22 +15,19 @@
 
 	function handleCursor(e: MouseEvent) {
 		cursor = e;
-		if (mouseStatus === 'down') {
-			console.log(e.target, canvas, clickPos, e.x, e.y, e.movementX, e.movementY);
-
-			x += (e.movementX / (zoom / 100)) * dragMultiplier;
-			y += (e.movementY / (zoom / 100)) * dragMultiplier;
+		if ($mouseStatus) {
+			x += e.movementX / ($zoom / 100);
+			y += e.movementY / ($zoom / 100);
 		}
 	}
 
 	function click(e: MouseEvent) {
-		clickPos = [e.clientX, e.clientY];
 		$selected = null;
-		mouseStatus = 'down';
+		$mouseStatus = true;
 	}
 
 	function release(e: MouseEvent) {
-		mouseStatus = 'up';
+		$mouseStatus = false;
 	}
 
 	function addText() {
@@ -54,10 +48,12 @@
 
 	if (browser) {
 		addEventListener('wheel', (e) => {
-			zoom = Math.max(zoom + e.deltaY * zoomMultiplier * -1, 1);
+			$zoom = Math.max($zoom + e.deltaY * zoomMultiplier * -1, 1);
 		});
 	}
 </script>
+
+<svelte:window on:mousemove={handleCursor} on:mousedown={click} on:mouseup={release} />
 
 <div
 	class="pointer-events-auto fixed bottom-0 left-0 z-50 m-2 bg-black bg-opacity-50 p-1 text-white"
@@ -66,7 +62,7 @@
 	{#if cursor}
 		<p>({cursor.clientX}, {cursor.clientY})</p>
 	{/if}
-	<p>Mouse: {mouseStatus}</p>
+	<p>Mouse: {$mouseStatus}</p>
 	<ul>
 		<li>
 			drag: <input type="range" bind:value={dragMultiplier} min="0" max="2" step="0.001" />
@@ -87,7 +83,7 @@
 	class="pointer-events-auto fixed bottom-0 right-0 z-50 m-2 bg-black bg-opacity-50 p-1 text-white"
 	draggable="false"
 >
-	<button on:click={addText}>Add text</button>
+	<button on:click={addText}>Add text {$zoom}</button>
 </div>
 
 <div class="pointer-events-auto fixed right-0 top-0 z-50 m-2 bg-black bg-opacity-50 p-1 text-white">
@@ -100,19 +96,17 @@
 
 <div
 	class="h-screen w-screen overflow-hidden overscroll-none"
-	on:mousemove={handleCursor}
-	on:mousedown={click}
-	on:mouseup={release}
 	role="presentation"
 	bind:this={canvas}
 	id="container"
-	style="--alpha: {lineTransparency}%; --translation: {(x + 50) * (zoom / 100)}px {(y + 50) *
-		(zoom / 100)}px; --zoom: {(zoom / 100) * 20}px"
+	style="--alpha: {lineTransparency}%; --translation: {(x + 50) * ($zoom / 100)}px {(y + 50) *
+		($zoom / 100)}px; --zoom: {($zoom / 100) * 20}px"
 >
 	<div
 		id="canvas"
 		class="h-full w-full"
-		style="--translation: {(x + 50) * (zoom / 100)}px {(y + 50) * (zoom / 100)}px; --zoom: {zoom}%"
+		style="--translation: {(x + 50) * ($zoom / 100)}px {(y + 50) *
+			($zoom / 100)}px; --zoom: {$zoom}%"
 	>
 		<p class="w-min bg-blue-500">+</p>
 		<slot />
@@ -122,8 +116,8 @@
 <div
 	class="fixed top-0 -z-50"
 	id="grid"
-	style="--alpha: {lineTransparency}%; --translation: {x * (zoom / 100)}px {y *
-		(zoom / 100)}px; --zoom: {zoom}px"
+	style="--alpha: {lineTransparency}%; --translation: {x * ($zoom / 100)}px {y *
+		($zoom / 100)}px; --zoom: {zoom}px"
 ></div>
 
 <style>

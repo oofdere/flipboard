@@ -37,7 +37,7 @@
 		</ul>
 	{/if}
 
-	<p class="w-min">{JSON.stringify($object)}</p>
+	<p class="w-32">{JSON.stringify($object)}</p>
 </div>
 
 <style>

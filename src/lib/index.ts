@@ -35,7 +35,6 @@ export type Image = {
     rotation: number,
     size: [number, number]
     position: [number, number],
-
 }
 
 export type ObjectTypes = Text | Image
@@ -44,3 +43,5 @@ export const state = writable<Writable<ObjectTypes>[]>([])
 
 export const selected: Writable<Writable<ObjectTypes> | null> = writable(null)
 export const tool: Writable<"text" | "image" | null> = writable(null)
+export const mouseStatus = writable(false)
+export const zoom = writable(100)

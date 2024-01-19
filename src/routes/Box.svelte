@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { draggable } from '@neodrag/svelte';
-	import { selected, type ObjectTypes, ComponentMap } from '$lib';
+	import { selected, type ObjectTypes, ComponentMap, mouseStatus, zoom } from '$lib';
 	import type { Writable } from 'svelte/store';
 
 	export let object: Writable<ObjectTypes>;
@@ -12,23 +12,40 @@
 		$selected = object;
 	}
 
-	$: console.log($selected);
+	function handleCursor(e: MouseEvent) {
+		if ($selected === object) {
+			e.stopPropagation();
+			console.log($mouseStatus, e);
+			if ($mouseStatus) {
+				$object.position[0] += (e.clientX - $object.position[0]) / ($zoom / 100);
+				$object.position[1] += (e.clientX - $object.position[0]) / ($zoom / 100);
+				$object.position = $object.position;
+				//y += (e.movementY / (zoom / 100)) * dragMultiplier;
+			}
+		}
+	}
+
+	function click(e: MouseEvent) {
+		e.stopPropagation();
+		$selected = object;
+		$mouseStatus = true;
+	}
+
+	function release(e: MouseEvent) {
+		$mouseStatus = false;
+	}
 </script>
 
 <div
-	class="absolute left-0 top-0 h-fit w-fit bg-fuchsia-400"
-	use:draggable
-	on:neodrag:end={(e) => console.log(e)}
+	class="box fixed left-0 top-0 h-fit w-fit bg-fuchsia-400"
+	style="rotate: {$object.rotation}deg; translate: {$object.position[0]}px {$object.position[1]}px;"
 >
 	<div
-		id="box"
 		class="w-fit border-4 {$selected == object ? 'border-red-400' : ''}"
-		style="--rotation: {$object.rotation}deg"
-		on:mousedown={(e) => {
-			e.stopPropagation();
-			select();
-		}}
+		on:mousedown={click}
 		role="none"
+		on:mousemove={handleCursor}
+		on:mouseup={release}
 	>
 		{#if $selected == object}
 			<div class="pointer-events-none fixed -top-7 w-full text-center">
@@ -40,7 +57,7 @@
 </div>
 
 <style>
-	#box {
-		rotate: var(--rotation);
+	div {
+		transform-origin: 50% 50%;
 	}
 </style>

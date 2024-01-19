@@ -7,6 +7,6 @@
 	console.log('text:', object);
 </script>
 
-<p class="select-none text-center" contenteditable="true" bind:innerText={$object.text}>
+<p class="select-none text-center" contenteditable="false" bind:innerText={$object.text}>
 	{$object.text} a
 </p>
