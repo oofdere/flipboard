@@ -1,12 +1,13 @@
 <script lang="ts">
-	import { canvasPosition, mouseStatus } from '$lib';
+	import { canvasPosition, mouseLeft, mouseRight, cursorCanvas, cursorScreen } from '$lib';
 	import { draggable } from '@neodrag/svelte';
 
 	let clickPos: [number, number] = [0, 0];
 
 	function handleCursor(e: MouseEvent) {
 		e.stopPropagation();
-		if ($mouseStatus === 'down') {
+		$cursorScreen = [e.clientX, e.clientY];
+		if ($mouseLeft === 'down') {
 			$canvasPosition[0] += e.clientX - clickPos[0];
 			$canvasPosition[1] += e.clientY - clickPos[1];
 			clickPos = [e.clientX, e.clientY];
@@ -16,12 +17,12 @@
 	function click(e: MouseEvent) {
 		e.stopPropagation();
 		clickPos = [e.clientX, e.clientY];
-		$mouseStatus = 'down';
+		$mouseLeft = 'down';
 	}
 
 	function release(e: MouseEvent) {
 		e.stopPropagation();
-		$mouseStatus = 'up';
+		$mouseLeft = 'up';
 	}
 </script>
 
@@ -33,10 +34,14 @@
 >
 	<div class="pointer-events-none fixed left-0 top-0 h-screen w-1 bg-green-500"></div>
 	<div class="pointer-events-none fixed left-0 top-0 h-1 w-screen bg-red-500"></div>
-	<p use:draggable>diknvfeirpofgneoir</p>
 </div>
 
-<p>{$mouseStatus} {$canvasPosition}</p>
+<p>{$mouseLeft} {$canvasPosition}</p>
+
+<div class="fixed left-0 top-0" style="translate: {$cursorScreen[0]}px {$cursorScreen[1]}px;">
+	<p>screen: {$cursorScreen}</p>
+	<p>canvas: {$cursorCanvas}</p>
+</div>
 
 <style>
 </style>
