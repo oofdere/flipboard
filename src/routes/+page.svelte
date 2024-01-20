@@ -1,10 +1,24 @@
 <script lang="ts">
-	import { canvasPosition, mouseLeft, mouseRight, cursorCanvas, cursorScreen, tool } from '$lib';
+	import {
+		canvasPosition,
+		mouseLeft,
+		mouseRight,
+		cursorCanvas,
+		cursorScreen,
+		tool,
+		settings
+	} from '$lib';
+	import Box from '$lib/components/Box.svelte';
 	import Panel from '$lib/components/Panel.svelte';
+	import Properties from '$lib/components/Properties.svelte';
+	import { elements, selected, type Elements, type RectElement } from '$lib/elements';
 	import { draggable } from '@neodrag/svelte';
+	import { writable, type Writable } from 'svelte/store';
 
 	let clickPos: [number, number] = [0, 0]; // initial click position
 	let dragPos: [number, number] = [0, 0]; // held mouse position
+	$: dragDelta = [dragPos[0] - clickPos[0], dragPos[1] - clickPos[1]];
+	let addedElement: Writable<Elements> | null = null;
 
 	function handleCursor(e: MouseEvent) {
 		e.stopPropagation();
@@ -16,8 +30,11 @@
 			} else if ($tool === 'select') {
 				dragPos[0] += e.clientX - clickPos[0];
 				dragPos[1] += e.clientY - clickPos[1];
+			} else if ($tool === 'rectangle' && addedElement !== null) {
+				$addedElement.size[0] = Math.abs(dragDelta[0]);
+				$addedElement.size[1] = Math.abs(dragDelta[1]);
+				$addedElement.position = $cursorCanvas;
 			}
-
 			dragPos = [e.clientX, e.clientY];
 		}
 	}
@@ -26,21 +43,37 @@
 		e.stopPropagation();
 		clickPos = [e.clientX, e.clientY];
 		dragPos = [e.clientX, e.clientY];
+		$selected = null;
 		$mouseLeft = 'down';
+		if ($tool === 'rectangle') {
+			addRect();
+		}
 	}
 
 	function release(e: MouseEvent) {
 		e.stopPropagation();
+		$selected = addedElement; // select the new element
+		addedElement = null; // remove the newly added element
 		$mouseLeft = 'up';
+	}
+
+	function addRect() {
+		const element = writable<RectElement>({
+			type: 'rect',
+			name: 'Rectangle',
+			position: $cursorCanvas,
+			size: [0, 0],
+			roundness: [0, 0, 0, 0],
+			rotation: 0
+		});
+		addedElement = element;
+		$elements.push(element);
+		$elements = $elements;
+		console.log($elements);
 	}
 </script>
 
-<svelte:window on:mousedown={click} on:mouseup={release} on:mousemove={handleCursor} />
-
-<div
-	class="canvas fixed left-0 top-0 h-0 w-0"
-	style="translate: {$canvasPosition[0]}px {$canvasPosition[1]}px;"
-></div>
+<svelte:body />
 
 <!-- X-axis marker-->
 <div
@@ -53,6 +86,36 @@
 	class="pointer-events-none fixed left-0 top-0 h-screen w-[1px] bg-green-500"
 	style="left: {$canvasPosition[0] - 0.5}px;"
 ></div>
+
+<div
+	class="fixed h-screen w-screen"
+	on:mousedown={click}
+	on:mouseup={release}
+	on:mousemove={handleCursor}
+	role="none"
+>
+	<div
+		class="canvas fixed left-0 top-0 h-0 w-0"
+		style="translate: {$canvasPosition[0]}px {$canvasPosition[1]}px;"
+	>
+		{#each $elements as e}
+			<Box {e} />
+		{/each}
+	</div>
+</div>
+
+{#if true}
+	<div
+		class="pointer-events-none fixed left-0 top-0"
+		style="translate: {$cursorScreen[0]}px {$cursorScreen[1]}px;"
+	>
+		<p>{$tool} {$mouseLeft}</p>
+		<p>screen: {$cursorScreen}</p>
+		<p>drag: {dragDelta}</p>
+		<p>click: {clickPos}</p>
+		<p>canvas: {$cursorCanvas}</p>
+	</div>
+{/if}
 
 {#if $tool === 'select'}
 	<div
@@ -72,19 +135,10 @@
 	</div>
 {/if}
 
-<p>{$mouseLeft} {$canvasPosition}</p>
-
-<div class="fixed left-0 top-0" style="translate: {$cursorScreen[0]}px {$cursorScreen[1]}px;">
-	<p>{$tool} {$mouseLeft}</p>
-	<p>screen: {$cursorScreen}</p>
-	<p>drag: {dragPos}</p>
-	<p>click: {clickPos}</p>
-	<p>canvas: {$cursorCanvas}</p>
-</div>
-
 <div class="fixed left-0 top-0">
 	<Panel>
 		<select class="text-black" bind:value={$tool}>
+			<option value="none">none</option>
 			<option value="pan">pan</option>
 			<option value="select">select</option>
 			<option value="text">Text</option>
@@ -95,7 +149,13 @@
 </div>
 
 <div class="fixed right-0 top-0">
-	<Panel>topright</Panel>
+	<Panel>
+		{#if $selected}
+			<Properties element={$selected} />
+		{:else}
+			no element selected
+		{/if}
+	</Panel>
 </div>
 
 <div class="fixed bottom-0">
@@ -103,7 +163,9 @@
 </div>
 
 <div class="fixed bottom-0 right-0">
-	<Panel>bottomright</Panel>
+	<Panel>
+		<button on:click={addRect}></button>
+	</Panel>
 </div>
 
 <style>
