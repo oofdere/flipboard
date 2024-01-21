@@ -7,12 +7,14 @@
 	export let e: Writable<Elements>;
 
 	$: position = { x: $e.position[0], y: $e.position[1] };
+	$: active = $selected === e;
 </script>
 
 <div
 	class="fixed top-0"
 	on:mousedown={(event) => {
 		event.stopPropagation();
+		$selected = e;
 	}}
 	on:click={(event) => {
 		event.stopPropagation();
@@ -27,7 +29,7 @@
 		gpuAcceleration: false
 	}}
 >
-	<div>
+	<div class=" border-blue-500 {active ? 'border-2' : ''}" style="rotate: {$e.rotation}deg;">
 		<svelte:component this={ComponentMap[$e.type]} {e}></svelte:component>
 	</div>
 </div>

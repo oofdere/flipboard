@@ -22,27 +22,28 @@
 
 	function handleCursor(e: MouseEvent) {
 		e.stopPropagation();
-		$cursorScreen = [e.clientX, e.clientY];
+		$cursorScreen = [e.pageX, e.pageY];
 		if ($mouseLeft === 'down') {
 			if ($tool === 'pan') {
 				$canvasPosition[0] += $cursorScreen[0] - dragPos[0];
 				$canvasPosition[1] += $cursorScreen[1] - dragPos[1];
 			} else if ($tool === 'select') {
-				dragPos[0] += e.clientX - clickPos[0];
-				dragPos[1] += e.clientY - clickPos[1];
 			} else if ($tool === 'rectangle' && addedElement !== null) {
 				$addedElement.size[0] = Math.abs(dragDelta[0]);
 				$addedElement.size[1] = Math.abs(dragDelta[1]);
-				$addedElement.position = $cursorCanvas;
+				/*$addedElement.position = [
+					dragDelta[0] < 0 ? $cursorCanvas[0] : clickPos[0],
+					dragDelta[1] < 0 ? $cursorCanvas[1] : clickPos[1]
+				];*/
 			}
-			dragPos = [e.clientX, e.clientY];
+			dragPos = [e.pageX, e.pageY];
 		}
 	}
 
 	function click(e: MouseEvent) {
 		e.stopPropagation();
-		clickPos = [e.clientX, e.clientY];
-		dragPos = [e.clientX, e.clientY];
+		clickPos = [e.pageX, e.pageY];
+		dragPos = [e.pageX, e.pageY];
 		$selected = null;
 		$mouseLeft = 'down';
 		if ($tool === 'rectangle') {
@@ -110,7 +111,7 @@
 		style="translate: {$cursorScreen[0]}px {$cursorScreen[1]}px;"
 	>
 		<p>{$tool} {$mouseLeft}</p>
-		<p>screen: {$cursorScreen}</p>
+		<p>screen: {$cursorScreen[0]}</p>
 		<p>drag: {dragDelta}</p>
 		<p>click: {clickPos}</p>
 		<p>canvas: {$cursorCanvas}</p>
@@ -164,7 +165,7 @@
 
 <div class="fixed bottom-0 right-0">
 	<Panel>
-		<button on:click={addRect}></button>
+		{JSON.stringify($selected)}
 	</Panel>
 </div>
 
