@@ -26,21 +26,52 @@
 	}
 </script>
 
-<b>{$element.name}</b>
-<hr />
-<ul>
-	<li>width: <input type="number" bind:value={$element.size[0]} /></li>
-	<li>height: <input type="number" bind:value={$element.size[1]} /></li>
-	<li>x: <input type="number" bind:value={$element.position[0]} /></li>
-	<li>y: <input type="number" bind:value={$element.position[1]} /></li>
-	<li>rotation: <input type="number" bind:value={$element.rotation} /></li>
-	<li><button class="" on:click={head}>send to top!</button></li>
-	<li><button class="" on:click={tail}>send to back!</button></li>
-	<li><button class="bg-red-800" on:click={del}>delete!</button> {idx}</li>
-</ul>
-
-<style>
-	input {
-		color: black;
-	}
-</style>
+<div class="p-2">
+	<b class="" contenteditable="true" bind:innerText={$element.name}></b>
+	<hr />
+	<ul>
+		<li class="join">
+			<p class="btn join-item btn-sm">x:</p>
+			<input
+				type="number"
+				class="input join-item input-bordered input-sm w-full max-w-xs"
+				bind:value={$element.position[0]}
+			/>
+			<p class="btn join-item btn-sm">y:</p>
+			<input
+				type="number"
+				class="input join-item input-bordered input-sm w-full max-w-xs"
+				bind:value={$element.position[1]}
+			/>
+			<button></button>
+		</li>
+		<li></li>
+		<li>rotation: <input type="number" bind:value={$element.rotation} /></li>
+		<li>fill: <input type="color" bind:value={$element.fill} /></li>
+		<li>
+			outline: <input type="color" bind:value={$element.outline[1]} />
+			<input type="number" bind:value={$element.outline[0]} />
+		</li>
+		<li><button class="" on:click={head}>send to top!</button></li>
+		<li><button class="" on:click={tail}>send to back!</button></li>
+		<li><button class="bg-red-800" on:click={del}>delete!</button> {idx}</li>
+	</ul>
+	<hr />
+	{#if $element.size}
+		<ul>
+			<li>width: <input type="number" bind:value={$element.size[0]} /></li>
+			<li>height: <input type="number" bind:value={$element.size[1]} /></li>
+		</ul>
+	{/if}
+	{#if $element.type === 'rect'}
+		<ul>
+			<li>
+				roundness:
+				<input type="number" bind:value={$element.roundness[0]} />
+				<input type="number" bind:value={$element.roundness[1]} />
+				<input type="number" bind:value={$element.roundness[2]} />
+				<input type="number" bind:value={$element.roundness[3]} />
+			</li>
+		</ul>
+	{/if}
+</div>

@@ -11,6 +11,7 @@
 	import Box from '$lib/components/Box.svelte';
 	import Panel from '$lib/components/Panel.svelte';
 	import Properties from '$lib/components/Properties.svelte';
+	import Tools from '$lib/components/Tools.svelte';
 	import { elements, selected, type Elements, type RectElement } from '$lib/elements';
 	import { draggable } from '@neodrag/svelte';
 	import { writable, type Writable } from 'svelte/store';
@@ -65,7 +66,10 @@
 			position: $cursorCanvas,
 			size: [0, 0],
 			roundness: [0, 0, 0, 0],
-			rotation: 0
+			rotation: 0,
+			fill: '#eeeeee',
+			outline: [0, '#000000'],
+			lockedRatio: false
 		});
 		addedElement = element;
 		$elements.push(element);
@@ -136,20 +140,13 @@
 	</div>
 {/if}
 
-<div class="fixed left-0 top-0">
+<div class="fixed left-0 top-0 h-screen">
 	<Panel>
-		<select class="text-black" bind:value={$tool}>
-			<option value="none">none</option>
-			<option value="pan">pan</option>
-			<option value="select">select</option>
-			<option value="text">Text</option>
-			<option value="rectangle">Rectangle</option>
-			<option value="ellipse">Ellipse</option>
-		</select>
+		<Tools></Tools>
 	</Panel>
 </div>
 
-<div class="fixed right-0 top-0">
+<div class="fixed right-0 top-0 m-2 h-screen w-64">
 	<Panel>
 		{#if $selected}
 			<Properties element={$selected} />

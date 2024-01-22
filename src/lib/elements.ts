@@ -1,25 +1,27 @@
 import { writable, type Writable } from "svelte/store"
 import Rect from "./components/Rect.svelte"
 
-export type RectElement = {
+export type BaseElement = {
+    name: string,
+    position: [x: number, y: number],
+    rotation: number,
+    fill: string,
+    outline: [size: number, color: string],
+    lockedRatio: boolean
+}
+
+export type RectElement = BaseElement & {
     type: "rect",
-    name: string,
-    position: [number, number],
-    size: [number, number], // this maps to x and y
-    roundness: [number, number, number, number],
-    rotation: number
+    size: [length: number, width: number], // this maps to x and y
+    roundness: [tl: string, tr: string, br: string, bl: string],
 }
 
-export type EllipseElement = {
+export type EllipseElement = BaseElement & {
     type: "ellipse",
-    name: string,
-    position: [number, number],
-    size: [number, number], // this maps to x and y
-    roundness: [number, number, number, number],
-    rotation: number
+    size: [length: number, width: number], // this maps to x and y
 }
 
-export type Elements = RectElement
+export type Elements = RectElement | EllipseElement
 
 export const elements = writable<Writable<Elements>[]>([])
 export const selected = writable<Writable<Elements> | null>(null)

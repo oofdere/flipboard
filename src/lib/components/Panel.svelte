@@ -1,3 +1,7 @@
-<div class="pointer-events-auto m-1 w-min bg-black bg-opacity-50 p-1 text-white">
+<div
+	class="pointer-events-auto h-full bg-base-200 bg-opacity-80 backdrop-blur-md"
+	on:mousemove={(e) => e.preventDefault()}
+	role="none"
+>
 	<slot />
 </div>
