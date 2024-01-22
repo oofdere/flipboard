@@ -12,22 +12,22 @@
 
 <ul class="flex h-full flex-col text-xl">
 	<div>
-		<Tool id="pan">
+		<Tool id="pan" kbd="a">
 			<TablerZoomPan class="p-2" />
 		</Tool>
-		<Tool id="select">
+		<Tool id="select" kbd="s">
 			<FluentSelectObject24Regular class="p-2" />
 		</Tool>
-		<Tool id="text">
+		<Tool id="text" kbd="t">
 			<FluentText12Regular class="p-2" />
 		</Tool>
-		<Tool id="rectangle">
+		<Tool id="rectangle" kbd="r">
 			<TablerSquarePlus2 class="p-2" />
 		</Tool>
-		<Tool id="ellipse">
+		<Tool id="ellipse" kbd="c">
 			<TablerCirclePlus2 class="p-2" />
 		</Tool>
-		<Tool id="triangle">
+		<Tool id="triangle" kbd="y">
 			<TablerTrianglePlus2 class="p-2" />
 		</Tool>
 	</div>

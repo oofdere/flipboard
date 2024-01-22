@@ -96,24 +96,24 @@
 			<ul>
 				<li class="">
 					roundness:
-					<div class="input-bordered grid grid-cols-2 overflow-hidden rounded-xl border-[1px]">
+					<div class="input-bordered grid grid-cols-2 overflow-hidden rounded-2xl border-[2px]">
 						<input
-							class="input input-bordered input-ghost input-sm rounded-none"
+							class="input input-bordered input-sm rounded-none"
 							type="number"
 							bind:value={$element.roundness[0]}
 						/>
 						<input
-							class="input input-bordered input-ghost input-sm rounded-none"
+							class="input input-bordered input-sm rounded-none"
 							type="number"
 							bind:value={$element.roundness[1]}
 						/>
 						<input
-							class="input input-bordered input-ghost input-sm rounded-none"
+							class="input input-bordered input-sm rounded-none"
 							type="number"
 							bind:value={$element.roundness[2]}
 						/>
 						<input
-							class="input input-bordered input-ghost input-sm rounded-none"
+							class="input input-bordered input-sm rounded-none"
 							type="number"
 							bind:value={$element.roundness[3]}
 						/>

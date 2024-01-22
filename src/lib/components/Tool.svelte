@@ -3,15 +3,26 @@
 	import type { SvelteComponent } from 'svelte';
 
 	export let id: Tools;
+	export let kbd: string;
 </script>
 
-<li class="">
-	<button
-		class="btn btn-square rounded-none {$tool === id ? 'btn-primary' : 'btn-ghost'}"
-		on:click={() => {
+<svelte:window
+	on:keyup={(e) => {
+		if (e.key === kbd) {
 			$tool = id;
-		}}
-	>
-		<slot />
-	</button>
+		}
+	}}
+/>
+
+<li class="">
+	<div class="tooltip tooltip-right" data-tip="{id} ({kbd})">
+		<button
+			class="btn btn-square m-0 rounded-none p-0 {$tool === id ? 'btn-primary' : 'btn-ghost'}"
+			on:click={() => {
+				$tool = id;
+			}}
+		>
+			<slot />
+		</button>
+	</div>
 </li>

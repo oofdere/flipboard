@@ -98,7 +98,7 @@
 	function addEllipse() {
 		const element = writable<EllipseElement>({
 			type: 'ellipse',
-			name: 'Rectangle',
+			name: 'Ellipse',
 			position: $cursorCanvas,
 			size: [0, 0],
 			rotation: 0,
@@ -117,13 +117,13 @@
 
 <!-- X-axis marker-->
 <div
-	class="pointer-events-none fixed left-0 top-0 h-[1px] w-screen bg-red-500"
+	class="pointer-events-none fixed left-0 top-0 h-[1px] w-screen bg-primary"
 	style="top: {$canvasPosition[1] - 0.5}px;"
 ></div>
 
 <!-- Y-axis marker -->
 <div
-	class="pointer-events-none fixed left-0 top-0 h-screen w-[1px] bg-green-500"
+	class="pointer-events-none fixed left-0 top-0 h-screen w-[1px] bg-secondary"
 	style="left: {$canvasPosition[0] - 0.5}px;"
 ></div>
 
