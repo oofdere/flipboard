@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { elements, selected, type Elements } from '$lib/elements';
 	import type { Writable } from 'svelte/store';
-
+	import MaterialSymbolsLockOpenOutlineRounded from '~icons/material-symbols/lock-open-outline-rounded';
+	import MaterialSymbolsLock from '~icons/material-symbols/lock';
 	export let element: Writable<Elements>;
 	$: idx = $elements.indexOf(element);
 
@@ -26,52 +27,99 @@
 	}
 </script>
 
-<div class="p-2">
-	<b class="" contenteditable="true" bind:innerText={$element.name}></b>
+<div class="flex w-full flex-col gap-2 p-2">
+	<div class="flex w-full items-center">
+		<input
+			class="input input-ghost w-full p-0 text-xl"
+			contenteditable="true"
+			bind:value={$element.name}
+		/>
+		<p>{idx}</p>
+	</div>
 	<hr />
-	<ul>
+	<ul class="flex flex-col gap-2">
 		<li class="join">
-			<p class="btn join-item btn-sm">x:</p>
+			<p class="btn btn-primary join-item btn-sm">x</p>
 			<input
 				type="number"
 				class="input join-item input-bordered input-sm w-full max-w-xs"
 				bind:value={$element.position[0]}
 			/>
-			<p class="btn join-item btn-sm">y:</p>
+			<p class="btn btn-error join-item btn-sm p-0">
+				<MaterialSymbolsLockOpenOutlineRounded class="p-1" />
+			</p>
 			<input
 				type="number"
 				class="input join-item input-bordered input-sm w-full max-w-xs"
 				bind:value={$element.position[1]}
 			/>
-			<button></button>
+			<p class="btn btn-secondary join-item btn-sm">y</p>
 		</li>
-		<li></li>
-		<li>rotation: <input type="number" bind:value={$element.rotation} /></li>
+		{#if $element.size}
+			<li class="join">
+				<p class="btn btn-primary join-item btn-sm">w</p>
+				<input
+					type="number"
+					class="input join-item input-bordered input-sm w-full max-w-xs"
+					bind:value={$element.size[0]}
+				/>
+				<p class="btn btn-error join-item btn-sm p-0">
+					<MaterialSymbolsLockOpenOutlineRounded class="p-1" />
+				</p>
+				<input
+					type="number"
+					class="input join-item input-bordered input-sm w-full max-w-xs"
+					bind:value={$element.size[1]}
+				/>
+				<p class="btn btn-secondary join-item btn-sm">h</p>
+			</li>
+		{/if}
+		<li>rotation: <input class="input input-sm" type="number" bind:value={$element.rotation} /></li>
 		<li>fill: <input type="color" bind:value={$element.fill} /></li>
 		<li>
-			outline: <input type="color" bind:value={$element.outline[1]} />
-			<input type="number" bind:value={$element.outline[0]} />
+			outline:
+			<div class="join max-w-full">
+				<input class="input join-item input-sm" type="number" bind:value={$element.outline[0]} />
+				<input class="input join-item input-sm p-0" type="color" bind:value={$element.outline[1]} />
+			</div>
 		</li>
-		<li><button class="" on:click={head}>send to top!</button></li>
-		<li><button class="" on:click={tail}>send to back!</button></li>
-		<li><button class="bg-red-800" on:click={del}>delete!</button> {idx}</li>
+		<li class="join">
+			<button class="btn btn-primary join-item btn-sm grow" on:click={head}>front!</button><button
+				class="btn btn-secondary join-item btn-sm grow"
+				on:click={tail}>back!</button
+			>
+		</li>
+		<li><button class="btn btn-error btn-xs w-full" on:click={del}>delete!</button></li>
+		<hr />
+
+		{#if $element.type === 'rect'}
+			<ul>
+				<li class="">
+					roundness:
+					<div class="input-bordered grid grid-cols-2 overflow-hidden rounded-xl border-[1px]">
+						<input
+							class="input input-bordered input-ghost input-sm rounded-none"
+							type="number"
+							bind:value={$element.roundness[0]}
+						/>
+						<input
+							class="input input-bordered input-ghost input-sm rounded-none"
+							type="number"
+							bind:value={$element.roundness[1]}
+						/>
+						<input
+							class="input input-bordered input-ghost input-sm rounded-none"
+							type="number"
+							bind:value={$element.roundness[2]}
+						/>
+						<input
+							class="input input-bordered input-ghost input-sm rounded-none"
+							type="number"
+							bind:value={$element.roundness[3]}
+						/>
+					</div>
+				</li>
+			</ul>
+		{/if}
 	</ul>
-	<hr />
-	{#if $element.size}
-		<ul>
-			<li>width: <input type="number" bind:value={$element.size[0]} /></li>
-			<li>height: <input type="number" bind:value={$element.size[1]} /></li>
-		</ul>
-	{/if}
-	{#if $element.type === 'rect'}
-		<ul>
-			<li>
-				roundness:
-				<input type="number" bind:value={$element.roundness[0]} />
-				<input type="number" bind:value={$element.roundness[1]} />
-				<input type="number" bind:value={$element.roundness[2]} />
-				<input type="number" bind:value={$element.roundness[3]} />
-			</li>
-		</ul>
-	{/if}
 </div>

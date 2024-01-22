@@ -65,7 +65,7 @@
 			name: 'Rectangle',
 			position: $cursorCanvas,
 			size: [0, 0],
-			roundness: [0, 0, 0, 0],
+			roundness: ['0', '0', '0', '0'],
 			rotation: 0,
 			fill: '#eeeeee',
 			outline: [0, '#000000'],
@@ -146,7 +146,7 @@
 	</Panel>
 </div>
 
-<div class="fixed right-0 top-0 m-2 h-screen w-64">
+<div class="fixed right-0 top-0 h-screen w-64">
 	<Panel>
 		{#if $selected}
 			<Properties element={$selected} />
@@ -156,14 +156,10 @@
 	</Panel>
 </div>
 
-<div class="fixed bottom-0">
-	<Panel>bottomleft</Panel>
-</div>
-
-<div class="fixed bottom-0 right-0">
-	<Panel>
-		{JSON.stringify($selected)}
-	</Panel>
+<div class="pointer-events-none fixed bottom-0 right-0 p-2 text-right">
+	<p>oofdere Pre-release Vector-based D***Board Ripoff</p>
+	<!-- svelte-ignore missing-declaration -->
+	<p>For testing purposes only. Build {BUILD_TIMESTAMP}.winmain.xbox.longhorn</p>
 </div>
 
 <style>

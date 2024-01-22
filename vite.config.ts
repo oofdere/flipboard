@@ -9,5 +9,8 @@ export default defineConfig({
 			props.width = '100%';
 			props.height = '100%'
 		}
-	})]
+	})],
+	define: {
+		BUILD_TIMESTAMP: new Date(),
+	},
 });
