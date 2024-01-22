@@ -78,9 +78,9 @@
 		<li>fill: <input type="color" bind:value={$element.fill} /></li>
 		<li>
 			outline:
-			<div class="join max-w-full">
+			<div class="join max-w-full overflow-clip">
 				<input class="input join-item input-sm" type="number" bind:value={$element.outline[0]} />
-				<input class="input join-item input-sm p-0" type="color" bind:value={$element.outline[1]} />
+				<input class="join-item m-0 w-16 p-0" type="color" bind:value={$element.outline[1]} />
 			</div>
 		</li>
 		<li class="join">

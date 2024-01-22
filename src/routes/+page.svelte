@@ -13,7 +13,13 @@
 	import Properties from '$lib/components/Properties.svelte';
 	import ThemeSelector from '$lib/components/ThemeSelector.svelte';
 	import Tools from '$lib/components/Tools.svelte';
-	import { elements, selected, type Elements, type RectElement } from '$lib/elements';
+	import {
+		elements,
+		selected,
+		type Elements,
+		type RectElement,
+		type EllipseElement
+	} from '$lib/elements';
 	import { draggable } from '@neodrag/svelte';
 	import { writable, type Writable } from 'svelte/store';
 
@@ -30,7 +36,7 @@
 				$canvasPosition[0] += $cursorScreen[0] - dragPos[0];
 				$canvasPosition[1] += $cursorScreen[1] - dragPos[1];
 			} else if ($tool === 'select') {
-			} else if ($tool === 'rectangle' && addedElement !== null) {
+			} else if (addedElement !== null) {
 				$addedElement.size[0] = Math.abs(dragDelta[0]);
 				$addedElement.size[1] = Math.abs(dragDelta[1]);
 				/*$addedElement.position = [
@@ -51,6 +57,17 @@
 		if ($tool === 'rectangle') {
 			addRect();
 		}
+
+		switch ($tool) {
+			case 'rectangle':
+				addRect();
+				break;
+			case 'ellipse':
+				addEllipse();
+				break;
+			default:
+				break;
+		}
 	}
 
 	function release(e: MouseEvent) {
@@ -69,7 +86,24 @@
 			roundness: ['0', '0', '0', '0'],
 			rotation: 0,
 			fill: '#eeeeee',
-			outline: [0, '#000000'],
+			outline: [2, '#000000'],
+			lockedRatio: false
+		});
+		addedElement = element;
+		$elements.push(element);
+		$elements = $elements;
+		console.log($elements);
+	}
+
+	function addEllipse() {
+		const element = writable<EllipseElement>({
+			type: 'ellipse',
+			name: 'Rectangle',
+			position: $cursorCanvas,
+			size: [0, 0],
+			rotation: 0,
+			fill: '#eeeeee',
+			outline: [2, '#000000'],
 			lockedRatio: false
 		});
 		addedElement = element;

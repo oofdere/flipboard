@@ -1,5 +1,6 @@
 import { writable, type Writable } from "svelte/store"
 import Rect from "./components/Rect.svelte"
+import Ellipse from "./components/Ellipse.svelte"
 
 export type BaseElement = {
     name: string,
@@ -28,5 +29,6 @@ export const selected = writable<Writable<Elements> | null>(null)
 
 // idk why these show up as types lol
 export const ComponentMap = {
-    'rect': Rect
+    'rect': Rect,
+    'ellipse': Ellipse
 }
