@@ -11,7 +11,8 @@
 </script>
 
 <div
-	class="fixed top-0"
+	class="fixed top-0 cursor-auto"
+	style="mix-blend-mode: {$e.blendMode}"
 	on:mousedown={(event) => {
 		event.stopPropagation();
 		$selected = e;
@@ -29,7 +30,7 @@
 		gpuAcceleration: false
 	}}
 >
-	<div class=" border-blue-500 {active ? 'border-2' : ''}" style="rotate: {$e.rotation}deg;">
-		<svelte:component this={ComponentMap[$e.type]} {e}></svelte:component>
+	<div class="border-blue-500 {active ? 'border-2' : ''}" style="rotate: {$e.rotation}deg; ">
+		<svelte:component this={ComponentMap[$e.type]} {e} style=""></svelte:component>
 	</div>
 </div>

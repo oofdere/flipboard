@@ -10,7 +10,7 @@
 	import Tool from './Tool.svelte';
 </script>
 
-<ul class="flex h-full flex-col text-xl">
+<ul class="z-10 flex h-screen flex-col bg-base-300 bg-opacity-80 text-xl backdrop-blur-md">
 	<div>
 		<Tool id="pan" kbd="a">
 			<TablerZoomPan class="p-2" />

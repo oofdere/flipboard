@@ -1,8 +1,9 @@
 <script lang="ts">
-	import { elements, selected, type Elements } from '$lib/elements';
+	import { elements, selected, type Elements, blendModes } from '$lib/elements';
 	import type { Writable } from 'svelte/store';
 	import MaterialSymbolsLockOpenOutlineRounded from '~icons/material-symbols/lock-open-outline-rounded';
 	import MaterialSymbolsLock from '~icons/material-symbols/lock';
+	import ThemeSelector from './ThemeSelector.svelte';
 	export let element: Writable<Elements>;
 	$: idx = $elements.indexOf(element);
 
@@ -27,7 +28,7 @@
 	}
 </script>
 
-<div class="flex w-full flex-col gap-2 p-2">
+<div class="flex h-screen w-full flex-col gap-2 bg-base-200 bg-opacity-80 p-2 backdrop-blur-md">
 	<div class="flex w-full items-center">
 		<input
 			class="input input-ghost w-full p-0 text-xl"
@@ -83,6 +84,14 @@
 				<input class="join-item m-0 w-16 p-0" type="color" bind:value={$element.outline[1]} />
 			</div>
 		</li>
+		<li>
+			blend mode:
+			<select class="input input-sm w-full" bind:value={$element.blendMode}>
+				{#each blendModes as mode}
+					<option value={mode}>{mode}</option>
+				{/each}
+			</select>
+		</li>
 		<li class="join">
 			<button class="btn btn-primary join-item btn-sm grow" on:click={head}>front!</button><button
 				class="btn btn-secondary join-item btn-sm grow"
@@ -110,16 +119,17 @@
 						<input
 							class="input input-bordered input-sm rounded-none"
 							type="number"
-							bind:value={$element.roundness[2]}
+							bind:value={$element.roundness[3]}
 						/>
 						<input
 							class="input input-bordered input-sm rounded-none"
 							type="number"
-							bind:value={$element.roundness[3]}
+							bind:value={$element.roundness[2]}
 						/>
 					</div>
 				</li>
 			</ul>
 		{/if}
 	</ul>
+	<ThemeSelector />
 </div>

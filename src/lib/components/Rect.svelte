@@ -6,10 +6,10 @@
 </script>
 
 <div
-	style="--width: {$e.size[0]}px; --height: {$e.size[1]}px; --b-size: {$e
+	style="--width: {$e.size[0]}px; --height: {$e.size[1]}px; --blend: {$e.blendMode}; --b-size: {$e
 		.outline[0]}px solid; --b-color: {$e.outline[1]}; --fill: {$e.fill}; --rounded: {$e
 		.roundness[0]}px {$e.roundness[1]}px {$e.roundness[2]}px {$e.roundness[3]}px"
-	class="border-2 border-black bg-gray-500"
+	class=""
 ></div>
 
 <style>

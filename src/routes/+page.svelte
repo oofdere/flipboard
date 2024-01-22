@@ -9,6 +9,7 @@
 		settings
 	} from '$lib';
 	import Box from '$lib/components/Box.svelte';
+	import LeftPane from '$lib/components/LeftPane.svelte';
 	import Panel from '$lib/components/Panel.svelte';
 	import Properties from '$lib/components/Properties.svelte';
 	import ThemeSelector from '$lib/components/ThemeSelector.svelte';
@@ -87,7 +88,8 @@
 			rotation: 0,
 			fill: '#eeeeee',
 			outline: [2, '#000000'],
-			lockedRatio: false
+			lockedRatio: false,
+			blendMode: 'normal'
 		});
 		addedElement = element;
 		$elements.push(element);
@@ -104,7 +106,8 @@
 			rotation: 0,
 			fill: '#eeeeee',
 			outline: [2, '#000000'],
-			lockedRatio: false
+			lockedRatio: false,
+			blendMode: 'normal'
 		});
 		addedElement = element;
 		$elements.push(element);
@@ -128,7 +131,13 @@
 ></div>
 
 <div
-	class="fixed h-screen w-screen"
+	class="fixed h-screen w-screen {$tool === 'text'
+		? 'cursor-text'
+		: $tool === 'pan'
+			? $mouseLeft === 'down'
+				? 'cursor-grabbing'
+				: 'cursor-grab'
+			: 'cursor-crosshair'}"
 	on:mousedown={click}
 	on:mouseup={release}
 	on:mousemove={handleCursor}
@@ -175,9 +184,9 @@
 	</div>
 {/if}
 
-<div class="fixed left-0 top-0 h-screen">
+<div class="fixed left-0 top-0 h-screen resize-x">
 	<Panel>
-		<Tools></Tools>
+		<LeftPane></LeftPane>
 	</Panel>
 </div>
 
@@ -188,12 +197,6 @@
 		{:else}
 			no element selected
 		{/if}
-	</Panel>
-</div>
-
-<div class="fixed bottom-0">
-	<Panel>
-		<ThemeSelector />
 	</Panel>
 </div>
 

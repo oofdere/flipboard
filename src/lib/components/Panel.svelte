@@ -1,5 +1,5 @@
 <div
-	class="pointer-events-auto h-full bg-base-200 bg-opacity-80 backdrop-blur-md"
+	class="pointer-events-auto h-full overflow-hidden"
 	on:mousemove={(e) => e.preventDefault()}
 	role="none"
 >
