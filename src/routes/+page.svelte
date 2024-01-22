@@ -11,6 +11,7 @@
 	import Box from '$lib/components/Box.svelte';
 	import Panel from '$lib/components/Panel.svelte';
 	import Properties from '$lib/components/Properties.svelte';
+	import ThemeSelector from '$lib/components/ThemeSelector.svelte';
 	import Tools from '$lib/components/Tools.svelte';
 	import { elements, selected, type Elements, type RectElement } from '$lib/elements';
 	import { draggable } from '@neodrag/svelte';
@@ -153,6 +154,12 @@
 		{:else}
 			no element selected
 		{/if}
+	</Panel>
+</div>
+
+<div class="fixed bottom-0">
+	<Panel>
+		<ThemeSelector />
 	</Panel>
 </div>
 
