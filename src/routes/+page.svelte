@@ -55,10 +55,6 @@
 		dragPos = [e.pageX, e.pageY];
 		$selected = null;
 		$mouseLeft = 'down';
-		if ($tool === 'rectangle') {
-			addRect();
-		}
-
 		switch ($tool) {
 			case 'rectangle':
 				addRect();
