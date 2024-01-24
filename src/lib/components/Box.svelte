@@ -27,10 +27,10 @@
 		onDrag: ({ offsetX, offsetY }) => {
 			$e.position = [offsetX, offsetY];
 		},
-		gpuAcceleration: false
+		gpuAcceleration: $settings.gpuAcceleration
 	}}
 >
 	<div class="border-blue-500 {active ? 'border-2' : ''}" style="rotate: {$e.rotation}deg; ">
-		<svelte:component this={ComponentMap[$e.type]} {e} style=""></svelte:component>
+		<svelte:component this={ComponentMap[$e.type]} {e}></svelte:component>
 	</div>
 </div>

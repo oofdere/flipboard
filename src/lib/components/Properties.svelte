@@ -4,6 +4,7 @@
 	import MaterialSymbolsLockOpenOutlineRounded from '~icons/material-symbols/lock-open-outline-rounded';
 	import MaterialSymbolsLock from '~icons/material-symbols/lock';
 	import ThemeSelector from './ThemeSelector.svelte';
+	import { settings } from '$lib';
 	export let element: Writable<Elements>;
 	$: idx = $elements.indexOf(element);
 
@@ -149,4 +150,16 @@
 		{/if}
 	</ul>
 	<ThemeSelector />
+	<button
+		on:click={() => {
+			$settings.gpuAcceleration = !$settings.gpuAcceleration;
+		}}
+	>
+		gpuAcceleration:
+		{#if $settings.gpuAcceleration}
+			on
+		{:else}
+			off
+		{/if}
+	</button>
 </div>
