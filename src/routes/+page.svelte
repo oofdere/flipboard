@@ -85,7 +85,8 @@
 			fill: '#eeeeee',
 			outline: [2, '#000000'],
 			lockedRatio: false,
-			blendMode: 'normal'
+			blendMode: 'normal',
+			opacity: 100
 		});
 		addedElement = element;
 		$elements.push(element);
@@ -103,7 +104,8 @@
 			fill: '#eeeeee',
 			outline: [2, '#000000'],
 			lockedRatio: false,
-			blendMode: 'normal'
+			blendMode: 'normal',
+			opacity: 100
 		});
 		addedElement = element;
 		$elements.push(element);

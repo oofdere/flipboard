@@ -4,6 +4,7 @@
 
 	export let id: Tools;
 	export let kbd: string;
+	export let disabled: boolean = false;
 </script>
 
 <svelte:window
@@ -21,6 +22,7 @@
 			on:click={() => {
 				$tool = id;
 			}}
+			{disabled}
 		>
 			<slot />
 		</button>

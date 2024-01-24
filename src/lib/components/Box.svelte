@@ -12,7 +12,7 @@
 
 <div
 	class="fixed top-0 cursor-auto"
-	style="mix-blend-mode: {$e.blendMode}"
+	style="mix-blend-mode: {$e.blendMode}; opacity: {$e.opacity}%"
 	on:mousedown={(event) => {
 		event.stopPropagation();
 		$selected = e;

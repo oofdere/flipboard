@@ -9,7 +9,8 @@ export type BaseElement = {
     fill: string,
     outline: [size: number, color: string],
     lockedRatio: boolean,
-    blendMode: BlendMode
+    blendMode: BlendMode,
+    opacity: number
 }
 
 export const blendModes = ['normal', 'multiply', 'screen', 'overlay', 'darken', 'lighten', 'color-dodge', 'color-burn', 'hard-light', 'soft-light', 'difference', 'exclusion', 'hue', 'saturation', 'color', 'luminosity'] as const

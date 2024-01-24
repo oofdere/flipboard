@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { elements, selected, type Elements, blendModes } from '$lib/elements';
-	import type { Writable } from 'svelte/store';
+	import { get, writable, type Writable } from 'svelte/store';
 	import MaterialSymbolsLockOpenOutlineRounded from '~icons/material-symbols/lock-open-outline-rounded';
 	import MaterialSymbolsLock from '~icons/material-symbols/lock';
 	import ThemeSelector from './ThemeSelector.svelte';
@@ -11,6 +11,17 @@
 		$elements.splice(idx, 1);
 		$elements = $elements;
 		$selected = null;
+	}
+
+	function clone() {
+		const c: Elements = {
+			...$element,
+			name: `${$element.name} (copy)`,
+			position: [$element.position[0] + 10, $element.position[1] + 10]
+		};
+		const idx = $elements.push(writable(c));
+		$elements = $elements;
+		$selected = $elements[idx - 1];
 	}
 
 	function head() {
@@ -85,6 +96,10 @@
 			</div>
 		</li>
 		<li>
+			opacity: {$element.opacity}%
+			<input type="range" min="0" max="100" bind:value={$element.opacity} class="range" />
+		</li>
+		<li>
 			blend mode:
 			<select class="input input-sm w-full" bind:value={$element.blendMode}>
 				{#each blendModes as mode}
@@ -93,12 +108,14 @@
 			</select>
 		</li>
 		<li class="join">
-			<button class="btn btn-primary join-item btn-sm grow" on:click={head}>front!</button><button
-				class="btn btn-secondary join-item btn-sm grow"
-				on:click={tail}>back!</button
-			>
+			<button class="btn btn-primary join-item btn-sm w-1/2" on:click={head}>front!</button>
+			<button class="btn btn-secondary join-item btn-sm grow" on:click={tail}>back!</button>
 		</li>
-		<li><button class="btn btn-error btn-xs w-full" on:click={del}>delete!</button></li>
+		<li class="join">
+			<button class="btn btn-info join-item btn-sm w-1/2" on:click={clone}>clone!</button>
+			<button class="btn btn-error join-item btn-sm grow" on:click={del}>delete!</button>
+		</li>
+		<li></li>
 		<hr />
 
 		{#if $element.type === 'rect'}

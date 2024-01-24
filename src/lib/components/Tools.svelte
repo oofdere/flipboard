@@ -18,7 +18,7 @@
 		<Tool id="select" kbd="s">
 			<FluentSelectObject24Regular class="p-2" />
 		</Tool>
-		<Tool id="text" kbd="t">
+		<Tool id="text" kbd="t" disabled={true}>
 			<FluentText12Regular class="p-2" />
 		</Tool>
 		<Tool id="rectangle" kbd="r">
@@ -27,7 +27,7 @@
 		<Tool id="ellipse" kbd="c">
 			<TablerCirclePlus2 class="p-2" />
 		</Tool>
-		<Tool id="triangle" kbd="y">
+		<Tool id="triangle" kbd="y" disabled={true}>
 			<TablerTrianglePlus2 class="p-2" />
 		</Tool>
 	</div>
