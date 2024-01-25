@@ -6,7 +6,8 @@
 		cursorCanvas,
 		cursorScreen,
 		tool,
-		settings
+		settings,
+		zoom
 	} from '$lib';
 	import Box from '$lib/components/Box.svelte';
 	import LeftPane from '$lib/components/LeftPane.svelte';
@@ -139,11 +140,14 @@
 	on:mousedown={click}
 	on:mouseup={release}
 	on:mousemove={handleCursor}
+	on:wheel={(e) => {
+		$zoom += e.deltaY / -100;
+	}}
 	role="none"
 >
 	<div
 		class="canvas fixed left-0 top-0 h-0 w-0"
-		style="translate: {$canvasPosition[0]}px {$canvasPosition[1]}px;"
+		style="translate: {$canvasPosition[0]}px {$canvasPosition[1]}px; scale: {$zoom}%;"
 	>
 		{#each $elements as e}
 			<Box {e} />
@@ -154,7 +158,7 @@
 {#if true}
 	<div
 		class="pointer-events-none fixed left-0 top-0"
-		style="translate: {$cursorScreen[0]}px {$cursorScreen[1]}px;"
+		style="translate: {$cursorScreen[0]}px {$cursorScreen[1]}px; "
 	>
 		<p>{$tool} {$mouseLeft}</p>
 		<p>screen: {$cursorScreen[0]}</p>
