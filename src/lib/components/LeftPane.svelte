@@ -7,5 +7,4 @@
 <div class="flex">
 	<Tools />
 	<Layers />
-	{$zoom}
 </div>

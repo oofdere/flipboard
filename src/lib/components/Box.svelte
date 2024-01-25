@@ -30,7 +30,10 @@
 		gpuAcceleration: $settings.gpuAcceleration
 	}}
 >
-	<div class="border-blue-500 {active ? 'border-2' : ''}" style="rotate: {$e.rotation}deg; ">
+	<div
+		class=" {active ? 'outline-dashed outline-2 outline-blue-500' : ''}"
+		style="rotate: {$e.rotation}deg; "
+	>
 		<svelte:component this={ComponentMap[$e.type]} {e}></svelte:component>
 	</div>
 </div>

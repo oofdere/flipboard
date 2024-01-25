@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { tool } from '$lib';
+	import { tool, zoom } from '$lib';
 	import TablerTrianglePlus2 from '~icons/tabler/triangle-plus-2';
 	import TablerCirclePlus2 from '~icons/tabler/circle-plus-2';
 	import TablerSquarePlus2 from '~icons/tabler/square-plus-2';
@@ -10,7 +10,9 @@
 	import Tool from './Tool.svelte';
 </script>
 
-<ul class="z-10 flex h-screen flex-col bg-base-300 bg-opacity-80 text-xl backdrop-blur-md">
+<ul
+	class="z-10 flex h-screen w-12 flex-col justify-between overflow-clip bg-base-300 bg-opacity-80 text-xl backdrop-blur-md"
+>
 	<div>
 		<Tool id="pan" kbd="a">
 			<TablerZoomPan class="p-2" />
@@ -31,5 +33,7 @@
 			<TablerTrianglePlus2 class="p-2" />
 		</Tool>
 	</div>
-	<div></div>
+	<div>
+		<input class="input input-xs rounded-none" type="number" bind:value={$zoom} />
+	</div>
 </ul>

@@ -1,7 +1,7 @@
 import { derived, writable } from "svelte/store";
 
 export const canvasPosition = writable<[number, number]>([0, 0]);
-export const zoom = writable<number>(1);
+export const zoom = writable<number>(100);
 
 export const mouseLeft = writable<"up" | "down">("up")
 export const mouseRight = writable<"up" | "down">("up")
