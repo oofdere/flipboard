@@ -207,7 +207,7 @@
 </div>
 
 <div class="pointer-events-none fixed bottom-0 right-0 p-2 text-right">
-	<p>oofdere Pre-release Vector-based D***Board Ripoff</p>
+	<p>Dingma(R) Balls(TM) Milestone 1</p>
 	<!-- svelte-ignore missing-declaration -->
 	<p>For testing purposes only. Build {BUILD_TIMESTAMP}</p>
 </div>
