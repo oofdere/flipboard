@@ -7,7 +7,8 @@
 		cursorScreen,
 		tool,
 		settings,
-		zoom
+		zoom,
+		zoomRatio
 	} from '$lib';
 	import Box from '$lib/components/Box.svelte';
 	import LeftPane from '$lib/components/LeftPane.svelte';
@@ -27,7 +28,7 @@
 
 	let clickPos: [number, number] = [0, 0]; // initial click position
 	let dragPos: [number, number] = [0, 0]; // held mouse position
-	$: dragDelta = [dragPos[0] - clickPos[0], dragPos[1] - clickPos[1]];
+	$: dragDelta = [(dragPos[0] - clickPos[0]) / $zoomRatio, (dragPos[1] - clickPos[1]) / $zoomRatio];
 	let addedElement: Writable<Elements> | null = null;
 
 	function handleCursor(e: MouseEvent) {
