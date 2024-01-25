@@ -88,7 +88,8 @@
 			outline: [2, '#000000'],
 			lockedRatio: false,
 			blendMode: 'normal',
-			opacity: 100
+			opacity: 100,
+			hidden: false
 		});
 		addedElement = element;
 		$elements.push(element);
@@ -107,7 +108,8 @@
 			outline: [2, '#000000'],
 			lockedRatio: false,
 			blendMode: 'normal',
-			opacity: 100
+			opacity: 100,
+			hidden: false
 		});
 		addedElement = element;
 		$elements.push(element);

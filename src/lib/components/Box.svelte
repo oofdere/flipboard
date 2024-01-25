@@ -10,28 +10,27 @@
 	$: active = $selected === e;
 </script>
 
-<div
-	class="fixed top-0 cursor-auto"
-	style="mix-blend-mode: {$e.blendMode}; opacity: {$e.opacity}%"
-	on:mousedown={(event) => {
-		event.stopPropagation();
-		$selected = e;
-	}}
-	on:click={(event) => {
-		event.stopPropagation();
-		$selected = e;
-	}}
-	role="none"
-	use:draggable={{
-		position,
-		onDrag: ({ offsetX, offsetY }) => {
-			$e.position = [offsetX, offsetY];
-		},
-		gpuAcceleration: $settings.gpuAcceleration
-	}}
->
-	<svelte:component this={ComponentMap[$e.type]} {e}></svelte:component>
-</div>
-
-<style>
-</style>
+{#if !$e.hidden}
+	<div
+		class="fixed top-0 cursor-auto"
+		style="mix-blend-mode: {$e.blendMode}; opacity: {$e.opacity}%"
+		on:mousedown={(event) => {
+			event.stopPropagation();
+			$selected = e;
+		}}
+		on:click={(event) => {
+			event.stopPropagation();
+			$selected = e;
+		}}
+		role="none"
+		use:draggable={{
+			position,
+			onDrag: ({ offsetX, offsetY }) => {
+				$e.position = [offsetX, offsetY];
+			},
+			gpuAcceleration: $settings.gpuAcceleration
+		}}
+	>
+		<svelte:component this={ComponentMap[$e.type]} {e}></svelte:component>
+	</div>
+{/if}

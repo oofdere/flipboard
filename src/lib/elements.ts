@@ -10,7 +10,8 @@ export type BaseElement = {
     outline: [size: number, color: string],
     lockedRatio: boolean,
     blendMode: BlendMode,
-    opacity: number
+    opacity: number,
+    hidden: boolean
 }
 
 export const blendModes = ['normal', 'multiply', 'screen', 'overlay', 'darken', 'lighten', 'color-dodge', 'color-burn', 'hard-light', 'soft-light', 'difference', 'exclusion', 'hue', 'saturation', 'color', 'luminosity'] as const
@@ -36,4 +37,10 @@ export const selected = writable<Writable<Elements> | null>(null)
 export const ComponentMap = {
     'rect': Rect,
     'ellipse': Ellipse
+}
+
+// use:element action; does everything <Box /> does but can be applied to elements directly and partially
+// important for making bounding boxes better, adding more types like paths, etc. while still being able to share logic between them
+export function element() {
+    // todo
 }
