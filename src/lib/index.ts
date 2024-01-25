@@ -12,4 +12,4 @@ export const cursorCanvas = derived([canvasPosition, cursorScreen, zoomRatio], (
 export type Tools = "pan" | "select" | "text" | "rectangle" | "ellipse" | "triangle"
 export const tool = writable<Tools>("pan")
 
-export const settings = writable<{ gpuAcceleration: boolean }>({ gpuAcceleration: false })
+export const settings = writable({ gpuAcceleration: false, zoomMultiplier: 10 })

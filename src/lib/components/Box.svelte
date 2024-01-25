@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { settings } from '$lib';
+	import { settings, zoom, zoomRatio } from '$lib';
 	import { ComponentMap, selected, type Elements } from '$lib/elements';
 	import { draggable } from '@neodrag/svelte';
 	import { type Writable } from 'svelte/store';
@@ -31,9 +31,12 @@
 	}}
 >
 	<div
-		class=" {active ? 'outline-dashed outline-2 outline-blue-500' : ''}"
-		style="rotate: {$e.rotation}deg; "
+		class="b {active ? 'outline-dashed outline-secondary' : ''}"
+		style="rotate: {$e.rotation}deg; outline-width: {(128 / $zoom) * 4}px"
 	>
 		<svelte:component this={ComponentMap[$e.type]} {e}></svelte:component>
 	</div>
 </div>
+
+<style>
+</style>

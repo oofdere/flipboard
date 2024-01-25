@@ -142,7 +142,8 @@
 	on:mouseup={release}
 	on:mousemove={handleCursor}
 	on:wheel={(e) => {
-		$zoom += e.deltaY / -100;
+		const z = $zoom + (e.deltaY / -100) * $settings.zoomMultiplier;
+		$zoom = z > 0 ? z : $zoom;
 	}}
 	role="none"
 >
@@ -206,7 +207,7 @@
 <div class="pointer-events-none fixed bottom-0 right-0 p-2 text-right">
 	<p>oofdere Pre-release Vector-based D***Board Ripoff</p>
 	<!-- svelte-ignore missing-declaration -->
-	<p>For testing purposes only. Build {BUILD_TIMESTAMP}.winmain.xbox.longhorn</p>
+	<p>For testing purposes only. Build {BUILD_TIMESTAMP}</p>
 </div>
 
 <style>

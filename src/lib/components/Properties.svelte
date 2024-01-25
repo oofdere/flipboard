@@ -162,4 +162,8 @@
 			off
 		{/if}
 	</button>
+	<div>
+		zoom speed: {$settings.zoomMultiplier}x
+		<input type="range" min="0" max="10" bind:value={$settings.zoomMultiplier} class="range" />
+	</div>
 </div>
