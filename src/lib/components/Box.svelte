@@ -30,12 +30,7 @@
 		gpuAcceleration: $settings.gpuAcceleration
 	}}
 >
-	<div
-		class="b {active ? 'outline-dashed outline-secondary' : ''}"
-		style="rotate: {$e.rotation}deg; outline-width: {(128 / $zoom) * 4}px"
-	>
-		<svelte:component this={ComponentMap[$e.type]} {e}></svelte:component>
-	</div>
+	<svelte:component this={ComponentMap[$e.type]} {e}></svelte:component>
 </div>
 
 <style>

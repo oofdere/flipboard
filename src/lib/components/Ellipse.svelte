@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { type EllipseElement } from '$lib/elements';
+	import { zoom } from '$lib';
+	import { selected, type EllipseElement } from '$lib/elements';
 	import { type Writable } from 'svelte/store';
 
 	export let e: Writable<EllipseElement>;
@@ -7,8 +8,10 @@
 
 <div
 	style="--width: {$e.size[0]}px; --height: {$e.size[1]}px; --b-size: {$e
-		.outline[0]}px solid; --b-color: {$e.outline[1]}; --fill: {$e.fill};"
-	class="border-2 border-black bg-gray-500"
+		.outline[0]}px solid; --b-color: {$e.outline[1]}; --fill: {$e.fill}; outline-width: {(128 /
+		$zoom) *
+		4}px; rotate: {$e.rotation}deg;"
+	class={$selected === e ? 'outline-dashed outline-secondary' : ''}
 ></div>
 
 <style>
