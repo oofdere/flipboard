@@ -1,6 +1,6 @@
 import { derived, writable } from "svelte/store";
 
-export const canvasPosition = writable<[number, number]>([0, 0]);
+export const canvasPosition = writable<[number, number]>([window.innerWidth / 2, window.innerHeight / 2]);
 export const zoom = writable<number>(100);
 export const zoomRatio = derived(zoom, x => x / 100);
 
