@@ -1,6 +1,7 @@
 import { writable, type Writable } from "svelte/store"
 import Rect from "./components/Rect.svelte"
 import Ellipse from "./components/Ellipse.svelte"
+import Text from "./components/Text.svelte"
 
 export type BaseElement = {
     name: string,
@@ -28,7 +29,13 @@ export type EllipseElement = BaseElement & {
     size: [length: number, width: number], // this maps to x and y
 }
 
-export type Elements = RectElement | EllipseElement
+export type TextElement = BaseElement & {
+    type: "text",
+    text: string,
+    size: number,
+}
+
+export type Elements = RectElement | EllipseElement | TextElement
 
 export const elements = writable<Writable<Elements>[]>([])
 export const selected = writable<Writable<Elements> | null>(null)
@@ -36,7 +43,8 @@ export const selected = writable<Writable<Elements> | null>(null)
 // idk why these show up as types lol
 export const ComponentMap = {
     'rect': Rect,
-    'ellipse': Ellipse
+    'ellipse': Ellipse,
+    'text': Text
 }
 
 // use:element action; does everything <Box /> does but can be applied to elements directly and partially

@@ -20,7 +20,7 @@
 		<Tool id="select" kbd="s">
 			<FluentSelectObject24Regular class="p-2" />
 		</Tool>
-		<Tool id="text" kbd="t" disabled={true}>
+		<Tool id="text" kbd="t">
 			<FluentText12Regular class="p-2" />
 		</Tool>
 		<Tool id="rectangle" kbd="r">

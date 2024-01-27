@@ -21,7 +21,8 @@
 		selected,
 		type Elements,
 		type RectElement,
-		type EllipseElement
+		type EllipseElement,
+		type TextElement
 	} from '$lib/elements';
 	import { draggable } from '@neodrag/svelte';
 	import { writable, type Writable } from 'svelte/store';
@@ -39,6 +40,7 @@
 				$canvasPosition[0] += $cursorScreen[0] - dragPos[0];
 				$canvasPosition[1] += $cursorScreen[1] - dragPos[1];
 			} else if ($tool === 'select') {
+			} else if ($tool === 'text') {
 			} else if (addedElement !== null) {
 				$addedElement.size[0] = Math.abs(dragDelta[0]);
 				$addedElement.size[1] = Math.abs(dragDelta[1]);
@@ -63,6 +65,9 @@
 				break;
 			case 'ellipse':
 				addEllipse();
+				break;
+			case 'text':
+				addText();
 				break;
 			default:
 				break;
@@ -110,6 +115,27 @@
 			blendMode: 'normal',
 			opacity: 100,
 			hidden: false
+		});
+		addedElement = element;
+		$elements.push(element);
+		$elements = $elements;
+		console.log($elements);
+	}
+
+	function addText() {
+		const element = writable<TextElement>({
+			type: 'text',
+			name: 'Text',
+			text: 'Sample Text',
+			position: $cursorCanvas,
+			rotation: 0,
+			fill: '#eeeeee',
+			outline: [1, '#000000'],
+			lockedRatio: false,
+			blendMode: 'normal',
+			opacity: 100,
+			hidden: false,
+			size: 48
 		});
 		addedElement = element;
 		$elements.push(element);

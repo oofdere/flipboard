@@ -68,7 +68,13 @@
 			/>
 			<p class="btn btn-secondary join-item btn-sm">y</p>
 		</li>
-		{#if $element.size}
+
+		{#if $element.type === 'text'}
+			<li class="">
+				font size
+				<input type="number" class="input input-sm w-full" bind:value={$element.size} />
+			</li>
+		{:else}
 			<li class="join">
 				<p class="btn btn-primary join-item btn-sm">w</p>
 				<input
@@ -87,6 +93,7 @@
 				<p class="btn btn-secondary join-item btn-sm">h</p>
 			</li>
 		{/if}
+
 		<li>rotation: <input class="input input-sm" type="number" bind:value={$element.rotation} /></li>
 		<li>fill: <input type="color" bind:value={$element.fill} /></li>
 		<li>
@@ -148,22 +155,23 @@
 				</li>
 			</ul>
 		{/if}
+		<hr />
+		<ThemeSelector />
+		<button
+			on:click={() => {
+				$settings.gpuAcceleration = !$settings.gpuAcceleration;
+			}}
+		>
+			gpuAcceleration:
+			{#if $settings.gpuAcceleration}
+				on
+			{:else}
+				off
+			{/if}
+		</button>
+		<div>
+			zoom speed: {$settings.zoomMultiplier}x
+			<input type="range" min="0" max="10" bind:value={$settings.zoomMultiplier} class="range" />
+		</div>
 	</ul>
-	<ThemeSelector />
-	<button
-		on:click={() => {
-			$settings.gpuAcceleration = !$settings.gpuAcceleration;
-		}}
-	>
-		gpuAcceleration:
-		{#if $settings.gpuAcceleration}
-			on
-		{:else}
-			off
-		{/if}
-	</button>
-	<div>
-		zoom speed: {$settings.zoomMultiplier}x
-		<input type="range" min="0" max="10" bind:value={$settings.zoomMultiplier} class="range" />
-	</div>
 </div>
