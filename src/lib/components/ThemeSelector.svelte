@@ -1,17 +1,5 @@
 <script lang="ts">
 	import { settings } from '$lib';
-	import local from '$lib/localstorage';
-	import { onMount } from 'svelte';
-
-	const html: HTMLHtmlElement = document.querySelector('html')!;
-
-	onMount(() => {
-		if (html) {
-			html.dataset.theme = $settings.theme;
-		}
-	});
-
-	$: html.dataset.theme = $settings.theme;
 
 	const themes = [
 		'light',
