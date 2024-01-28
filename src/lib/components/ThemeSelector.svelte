@@ -1,6 +1,17 @@
 <script lang="ts">
+	import { settings } from '$lib';
+	import local from '$lib/localstorage';
 	import { onMount } from 'svelte';
-	import { themeChange } from 'theme-change';
+
+	const html: HTMLHtmlElement = document.querySelector('html')!;
+
+	onMount(() => {
+		if (html) {
+			html.dataset.theme = $settings.theme;
+		}
+	});
+
+	$: html.dataset.theme = $settings.theme;
 
 	const themes = [
 		'light',
@@ -38,12 +49,8 @@
 	];
 </script>
 
-<select data-choose-theme class="input input-primary">
-	<option value="">system</option>
-	<option value="light">light</option>
-	<option value="dark">dark</option>
-
-	{#each themes as theme}
-		<option value={theme}>{theme}</option>
+<select bind:value={$settings.theme} class="input input-primary">
+	{#each themes as t}
+		<option value={t}>{t}</option>
 	{/each}
 </select>
