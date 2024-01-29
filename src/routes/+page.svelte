@@ -22,7 +22,8 @@
 		type Elements,
 		type RectElement,
 		type EllipseElement,
-		type TextElement
+		type TextElement,
+		serialize
 	} from '$lib/elements';
 	import { draggable } from '@neodrag/svelte';
 	import { writable, type Writable } from 'svelte/store';
@@ -99,7 +100,7 @@
 		addedElement = element;
 		$elements.push(element);
 		$elements = $elements;
-		console.log($elements);
+		console.log(serialize(elements));
 	}
 
 	function addEllipse() {
@@ -119,7 +120,7 @@
 		addedElement = element;
 		$elements.push(element);
 		$elements = $elements;
-		console.log($elements);
+		console.log(serialize(elements));
 	}
 
 	function addText() {
@@ -140,7 +141,7 @@
 		addedElement = element;
 		$elements.push(element);
 		$elements = $elements;
-		console.log($elements);
+		console.log(serialize(elements));
 	}
 </script>
 

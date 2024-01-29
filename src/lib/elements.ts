@@ -1,4 +1,4 @@
-import { writable, type Writable } from "svelte/store"
+import { get, writable, type Writable } from "svelte/store"
 import Rect from "./components/Rect.svelte"
 import Ellipse from "./components/Ellipse.svelte"
 import Text from "./components/Text.svelte"
@@ -37,8 +37,22 @@ export type TextElement = BaseElement & {
 
 export type Elements = RectElement | EllipseElement | TextElement
 
-export const elements = writable<Writable<Elements>[]>([])
+let doc = localStorage.getItem('doc');
+if (!doc) {
+    doc = JSON.stringify([])
+    localStorage.setItem('doc', JSON.stringify([]))
+}
+
+export const elements = deserialize(JSON.parse(doc))
 export const selected = writable<Writable<Elements> | null>(null)
+
+export function serialize(e: typeof elements) {
+    return get(e).map(x => get(x))
+}
+
+export function deserialize(e: Elements[]) {
+    return writable(e.map(x => writable<Elements>(x)))
+}
 
 // idk why these show up as types lol
 export const ComponentMap = {

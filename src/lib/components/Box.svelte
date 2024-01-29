@@ -1,6 +1,13 @@
 <script lang="ts">
 	import { settings, zoom, zoomRatio } from '$lib';
-	import { ComponentMap, selected, type Elements } from '$lib/elements';
+	import {
+		ComponentMap,
+		selected,
+		type Elements,
+		deserialize,
+		serialize,
+		elements
+	} from '$lib/elements';
 	import { draggable } from '@neodrag/svelte';
 	import { type Writable } from 'svelte/store';
 
@@ -8,6 +15,11 @@
 
 	$: position = { x: $e.position[0], y: $e.position[1] };
 	$: active = $selected === e;
+
+	$: {
+		$e;
+		localStorage.setItem('doc', JSON.stringify(serialize(elements)));
+	}
 </script>
 
 {#if !$e.hidden}
