@@ -80,6 +80,7 @@
 		$selected = addedElement; // select the new element
 		addedElement = null; // remove the newly added element
 		$mouseLeft = 'up';
+		$tool = 'pan';
 	}
 
 	function addRect() {
