@@ -8,7 +8,8 @@
 		tool,
 		settings,
 		zoom,
-		zoomRatio
+		zoomRatio,
+		modifier
 	} from '$lib';
 	import Box from '$lib/components/Box.svelte';
 	import LeftPane from '$lib/components/LeftPane.svelte';
@@ -59,6 +60,7 @@
 		clickPos = [e.pageX, e.pageY];
 		dragPos = [e.pageX, e.pageY];
 		$selected = null;
+		$modifier = null;
 		$mouseLeft = 'down';
 		switch ($tool) {
 			case 'rectangle':
@@ -146,7 +148,23 @@
 	}
 </script>
 
-<svelte:body />
+<svelte:window
+	on:keyup={(e) => {
+		if ($selected) {
+			switch (e.key) {
+				case 'r':
+					$modifier = 'rotate';
+					break;
+				case 's':
+					$modifier = 'scale';
+
+					break;
+				default:
+					break;
+			}
+		}
+	}}
+/>
 
 <!-- X-axis marker-->
 <div
@@ -192,11 +210,13 @@
 		class="pointer-events-none fixed left-0 top-0"
 		style="translate: {$cursorScreen[0]}px {$cursorScreen[1]}px; "
 	>
-		<p>{$tool} {$mouseLeft}</p>
-		<p>screen: {$cursorScreen[0]}</p>
-		<p>drag: {dragDelta}</p>
-		<p>click: {clickPos}</p>
-		<p>canvas: {$cursorCanvas}</p>
+		{#if !$modifier}
+			<p>{$tool} {$mouseLeft}</p>
+			<p>screen: {$cursorScreen[0]}</p>
+			<p>drag: {dragDelta}</p>
+			<p>click: {clickPos}</p>
+			<p>canvas: {$cursorCanvas}</p>
+		{/if}
 	</div>
 {/if}
 
@@ -235,7 +255,7 @@
 </div>
 
 <div class="pointer-events-none fixed bottom-0 right-0 p-2 text-right">
-	<p>Dingma(R) Balls(TM) Milestone 1</p>
+	<p>Dingma(R) Balls(TM) Milestone 1 {$modifier}</p>
 	<!-- svelte-ignore missing-declaration -->
 	<p>For testing purposes only. Build {BUILD_TIMESTAMP}</p>
 </div>

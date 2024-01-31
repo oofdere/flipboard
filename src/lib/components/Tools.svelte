@@ -14,22 +14,22 @@
 	class="z-10 flex h-screen w-12 flex-col justify-between overflow-clip bg-base-300 bg-opacity-80 text-xl backdrop-blur-md"
 >
 	<div>
-		<Tool id="pan" kbd="a">
+		<Tool id="pan">
 			<TablerZoomPan class="p-2" />
 		</Tool>
-		<Tool id="select" kbd="s">
+		<Tool id="select">
 			<FluentSelectObject24Regular class="p-2" />
 		</Tool>
-		<Tool id="text" kbd="t">
+		<Tool id="text">
 			<FluentText12Regular class="p-2" />
 		</Tool>
-		<Tool id="rectangle" kbd="r">
+		<Tool id="rectangle">
 			<TablerSquarePlus2 class="p-2" />
 		</Tool>
-		<Tool id="ellipse" kbd="c">
+		<Tool id="ellipse">
 			<TablerCirclePlus2 class="p-2" />
 		</Tool>
-		<Tool id="triangle" kbd="y" disabled={true}>
+		<Tool id="triangle" disabled={true}>
 			<TablerTrianglePlus2 class="p-2" />
 		</Tool>
 	</div>

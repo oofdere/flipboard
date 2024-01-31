@@ -13,4 +13,7 @@ export const cursorCanvas = derived([canvasPosition, cursorScreen, zoomRatio], (
 export type Tools = "pan" | "select" | "text" | "rectangle" | "ellipse" | "triangle"
 export const tool = writable<Tools>("pan")
 
+export type Modifiers = "rotate" | "scale"
+export const modifier = writable<Modifiers | null>(null)
+
 export const settings = local('settings', { gpuAcceleration: false, zoomMultiplier: 10, theme: 'dracula' })
