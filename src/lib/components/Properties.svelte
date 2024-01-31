@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { elements, selected, type Elements, blendModes } from '$lib/elements';
+	import { elements, selected, type Elements, blendModes, ComponentMap } from '$lib/elements';
 	import { get, writable, type Writable } from 'svelte/store';
 	import MaterialSymbolsLockOpenOutlineRounded from '~icons/material-symbols/lock-open-outline-rounded';
 	import MaterialSymbolsLock from '~icons/material-symbols/lock';
@@ -123,7 +123,6 @@
 			<button class="btn btn-info join-item btn-sm w-1/2" on:click={clone}>clone!</button>
 			<button class="btn btn-error join-item btn-sm grow" on:click={del}>delete!</button>
 		</li>
-		<li></li>
 		<hr />
 
 		{#if $element.type === 'rect'}
