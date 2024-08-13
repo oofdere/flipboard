@@ -1,48 +1,32 @@
 {
-  "name": "flipboard",
-  "version": "0.0.1",
-  "private": true,
-  "scripts": {
-    "dev": "vite dev",
-    "build": "vite build",
-    "preview": "vite preview",
-    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-    "lint": "prettier --check . && eslint .",
-    "format": "prettier --write ."
-  },
-  "devDependencies": {
-    "@iconify/json": "^2.2.177",
-    "@sveltejs/adapter-auto": "^3.1.1",
-    "@sveltejs/adapter-static": "^3.0.1",
-    "@sveltejs/kit": "^2.5.0",
-    "@sveltejs/vite-plugin-svelte": "^3.0.2",
-    "@types/eslint": "8.56.2",
-    "@typescript-eslint/eslint-plugin": "^6.20.0",
-    "@typescript-eslint/parser": "^6.20.0",
-    "autoprefixer": "^10.4.17",
-    "daisyui": "latest",
-    "eslint": "^8.56.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-svelte": "^2.35.1",
-    "postcss": "^8.4.33",
-    "postcss-load-config": "^5.0.2",
-    "prettier": "^3.2.4",
-    "prettier-plugin-svelte": "^3.1.2",
-    "prettier-plugin-tailwindcss": "^0.5.11",
-    "svelte": "^4.2.9",
-    "svelte-check": "^3.6.3",
-    "tailwindcss": "^3.4.1",
-    "tslib": "^2.6.2",
-    "typescript": "^5.3.3",
-    "unplugin-icons": "^0.18.3",
-    "vite": "^5.0.12"
-  },
-  "type": "module",
-  "dependencies": {
-    "@neodrag/svelte": "^2.0.3",
-    "@oofdere/crabrave": "^0.2.2",
-    "nanoid": "^5.0.4",
-    "theme-change": "^2.5.0"
-  }
+	"name": "flipboard",
+	"version": "0.0.1",
+	"private": true,
+	"scripts": {
+		"dev": "vite dev",
+		"build": "vite build",
+		"preview": "vite preview",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"lint": "prettier --check . && eslint .",
+		"format": "prettier --write ."
+	},
+	"devDependencies": {
+		"@sveltejs/adapter-auto": "^3.0.0",
+		"@sveltejs/kit": "^2.0.0",
+		"@sveltejs/vite-plugin-svelte": "^3.0.0",
+		"@types/eslint": "^9.6.0",
+		"eslint": "^9.0.0",
+		"eslint-config-prettier": "^9.1.0",
+		"eslint-plugin-svelte": "^2.36.0",
+		"globals": "^15.0.0",
+		"prettier": "^3.1.1",
+		"prettier-plugin-svelte": "^3.1.2",
+		"svelte": "^5.0.0-next.1",
+		"svelte-check": "^3.6.0",
+		"typescript": "^5.0.0",
+		"typescript-eslint": "^8.0.0",
+		"vite": "^5.0.3"
+	},
+	"type": "module"
 }

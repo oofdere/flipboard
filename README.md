@@ -1,45 +1,38 @@
-# flipboard
+# create-svelte
 
-adobe xd/figma/sketch if it didn't suck
+Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
 
-## how it works
-css transformations are the name of the game, instead of figuring out complicated shit like graphics and math and interaction handling, we kinda just let the dom do its thing
+## Creating a project
 
-## elements
+If you're seeing this, you've probably already done this step. Congrats!
 
-### canvas
-the canvas stores all other elements and has a transformation and scale applied based on mouse inputs to allow users to pan and zoom. it's just a div with clipping disabled.
+```bash
+# create a new project in the current directory
+npm create svelte@latest
 
-## state
-
-### `$elements`
-```ts
-export const elements = writable<Writable<ElementTypes>[]>([]);
-```
-`elements` is a writable svelte store containing all of the elements (wrapped in writable svelte stores) in layer order. essentially it's a list of pointers to elements.
-
-### `$selected`
-```ts
-export const selected = writable<Writable<ElementTypes>>(null);
+# create a new project in my-app
+npm create svelte@latest my-app
 ```
 
-`selected` is a svelte store containing null when nothing is selected or a writable store of the selected element. essentially a pointer to the selected element.
+## Developing
 
-### `$mouseStatus`
+Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
 
-```ts
-export const mouseStatus = writable<"left" | "middle" | "right" | null>(null);
+```bash
+npm run dev
+
+# or start the server and open the app in a new browser tab
+npm run dev -- --open
 ```
 
-contains the currently pressed/held mouse button, or null if no button is pressed
+## Building
 
-### `$canvasPosition`
-```ts
-export const canvasPosition = writable<[number, number]>([0, 0]);
+To create a production version of your app:
+
+```bash
+npm run build
 ```
 
-contains the position of the center of the canvas
+You can preview the production build with `npm run preview`.
 
-### `$tool`
-
-contains the currently selected tool
+> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
